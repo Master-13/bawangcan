@@ -1,7 +1,5 @@
 # Readme
-
-一键报名大众点评“霸王餐”所有（误，实际上是大部分）活动  
-
+一键报名大众点评“霸王餐”所有（误，实际上是大部分）活动
 
 ##系统需求
 1. python  
@@ -16,13 +14,13 @@
 >如 python xxxxx.py d38baa6dbee1f081e4fd6c9a3eb6ca3d7b2ca7d9
 
 
+
 ##更新 by Master_13
 >@20171109
   
 1. 只看还没有报名的  
 2. 如果活动支持“黄金替补”，则会自动勾选  
-3. 多商圈活动或多套餐活动自动忽略，请手工去网站上报名  
-
+3. 多商圈活动或多套餐活动自动忽略，请手工去网站上报名
 
 ## Original version
 https://github.com/mascure/bawangcan
