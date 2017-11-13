@@ -1,10 +1,10 @@
-#coding:gbk
+#coding:utf8
 
-#¸üĞÂ by Master_13
+#æ›´æ–° by Master_13
 #@20171109
-#1. Ö»¿´»¹Ã»ÓĞ±¨ÃûµÄ
-#2. Èç¹û»î¶¯Ö§³Ö¡°»Æ½ğÌæ²¹¡±£¬Ôò»á×Ô¶¯¹´Ñ¡
-#3. ¶àÉÌÈ¦»î¶¯»ò¶àÌ×²Í»î¶¯×Ô¶¯ºöÂÔ£¬ÇëÊÖ¹¤È¥ÍøÕ¾ÉÏ±¨Ãû
+#1. åªçœ‹è¿˜æ²¡æœ‰æŠ¥åçš„
+#2. å¦‚æœæ´»åŠ¨æ”¯æŒâ€œé»„é‡‘æ›¿è¡¥â€ï¼Œåˆ™ä¼šè‡ªåŠ¨å‹¾é€‰
+#3. å¤šå•†åœˆæ´»åŠ¨æˆ–å¤šå¥—é¤æ´»åŠ¨è‡ªåŠ¨å¿½ç•¥ï¼Œè¯·æ‰‹å·¥å»ç½‘ç«™ä¸ŠæŠ¥å
 
 import sys
 import time
@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import Select
 def process_category(url,driver):
     driver.get(url)
     try:
-        #Ò»Ö±µã²é¿´¸ü¶à£¬¼ÓÔØËùÓĞ»î¶¯
+        #ä¸€ç›´ç‚¹æŸ¥çœ‹æ›´å¤šï¼ŒåŠ è½½æ‰€æœ‰æ´»åŠ¨
         while(1):
             more=driver.find_element_by_class_name("monad-more")
             more.click()
@@ -26,14 +26,14 @@ def process_category(url,driver):
     elements=driver.find_elements_by_class_name("monad-default")
     for e in elements:
         monadd=e.find_element_by_class_name("monad-data")
-        if monadd.text.find(u'ÒÑ±¨Ãû')==-1:    #»¹Î´±¨Ãû
+        if monadd.text.find(u'å·²æŠ¥å')==-1:    #è¿˜æœªæŠ¥å
             a = e.find_element_by_tag_name("a")
             event_url= a.get_attribute("href")
             title=a.get_attribute("title")
             all_event_url.append((str(event_url),title))                
 
     total=len(all_event_url)
-    print "¿ªÊ¼±¨Ãû"+str(total)+"¸ö»î¶¯..."
+    print "å¼€å§‹æŠ¥å"+str(total)+"ä¸ªæ´»åŠ¨..."
     cnt=0
     no=0
     for url in all_event_url:
@@ -42,22 +42,25 @@ def process_category(url,driver):
         try:
             big_btn=driver.find_element_by_class_name("big-btn")
             big_btn.click()
-            try:    #Í¬Òâ»Æ½ğÌæ²¹
+            try:    #åŒæ„é»„é‡‘æ›¿è¡¥
+                time.sleep(1)
                 sel=Select(driver.find_element_by_class_name("J_applyExtendInfo"))
                 sel.select_by_index(1)                
             except:
                 pass
+            time.sleep(3)            
             ok=driver.find_element_by_id("J_pop_ok")
             ok.click()
             cnt+=1
             print str(no)+" success:"+url[1].encode('utf8')
-        except:
+        except Exception, e:
             print str(no)+' failed:'+url[1].encode('utf8')
-        time.sleep(3)
+            print format(e)
+        time.sleep(1)
     return;
 
 def main():
-    print 'ÕıÔÚÖ´ĞĞ¡­¡­'
+    print 'æ­£åœ¨æ‰§è¡Œâ€¦â€¦'
 
     print sys.argv
     print len(sys.argv)
@@ -73,10 +76,10 @@ def main():
     driver.get("http://s.dianping.com/event/119124")
     driver.add_cookie({'name':'dper', 'value':dper,'path':'/'})
     category_urls=[]
-    category_urls.append("http://s.dianping.com/event/shanghai/c1") #ÃÀÊ³
-    category_urls.append("http://s.dianping.com/event/shanghai/c6") #ÍæÀÖ
-    #category_urls.append("http://s.dianping.com/event/shanghai/c2")#ÀöÈË
-    category_urls.append("http://s.dianping.com/event/shanghai/c99")#ÆäËû
+    category_urls.append("http://s.dianping.com/event/shanghai/c1") #ç¾é£Ÿ
+    category_urls.append("http://s.dianping.com/event/shanghai/c6") #ç©ä¹
+    #category_urls.append("http://s.dianping.com/event/shanghai/c2")#ä¸½äºº
+    category_urls.append("http://s.dianping.com/event/shanghai/c99")#å…¶ä»–
     for url in category_urls:
         process_category(url, driver)
     driver.quit()
